@@ -1,12 +1,12 @@
 {
   "name": "generator-react-kiva",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "The second generation of react PC development template.",
   "scripts": {},
   "author": "SystemLight",
   "license": "MIT",
   "files": [
-    "app"
+    "generators"
   ],
   "keywords": [
     "yeoman-generator",
