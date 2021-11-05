@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "stylelint-order"
+  ],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-idiomatic-order"
+  ],
+  "rules": {
+    "no-empty-source": null,
+    "selector-list-comma-newline-after": null,
+    "indentation": 4,
+    "color-hex-case": "upper",
+    "color-hex-length": "long"
+  }
+}
