@@ -11,9 +11,7 @@ npm i generator-react-kiva -g
 yo react-kiva
 ```
 
-## 项目主要开发工具
-
-纯粹的引入各种工具，但是没有完全配置的模板项目
+## 集成环境
 
 - [x] git
 - [x] webpack
@@ -31,6 +29,11 @@ yo react-kiva
 - [x] react
 
 ## 更新日志
+
+### V2.1.2
+
+- 丰富webpack.config.js中jsdoc定义
+- 增加Readme模板内容
 
 ### V2.1.0
 

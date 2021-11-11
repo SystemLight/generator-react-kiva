@@ -1,4 +1,4 @@
-const ph = require('path');
+const path = require('path');
 
 const webpack = require('webpack');
 const WebpackBar = require('webpackbar');
@@ -13,25 +13,33 @@ const InlineChunkHtmlPlugin = require('react-dev-utils/InlineChunkHtmlPlugin');
 
 const MockServer = require('./mocks/mock-server');
 
-const webpackDevClientEntry = require.resolve(
-    'react-dev-utils/webpackHotDevClient'
-);
+/** @typedef { import('webpack/declarations/WebpackOptions').WebpackOptions } WebpackOptions  */
+/** @typedef { import('webpack/declarations/WebpackOptions').OptimizationSplitChunksOptions } OptimizationSplitChunksOptions */
+/** @typedef { import('webpack/declarations/WebpackOptions').RuleSetRules } RuleSetRules */
+/** @typedef { import('webpack/declarations/WebpackOptions').WebpackPluginInstance } WebpackPluginInstance */
+/** @typedef { import('webpack/declarations/WebpackOptions').WebpackPluginFunction } WebpackPluginFunction */
+/** @typedef { (WebpackPluginInstance | WebpackPluginFunction)[] } WebpackPlugins */
+
+const webpackDevClientEntry = require.resolve('react-dev-utils/webpackHotDevClient');
+const targetDistPath = path.resolve(__dirname, 'dist');
+const publicPath = '/';
 
 /**
  * 获取开发服务器配置信息
  * 更多配置：https://v4.webpack.js.org/configuration/dev-server/#devserver
+ * @type { Object } devServer
  */
 const devServer = {
+    stats: 'errors-only',
     clientLogLevel: 'silent',
     quiet: true,
-    stats: 'errors-only',
     noInfo: true,
     overlay: true,
     open: false,
     openPage: '',
     transportMode: 'ws',
     disableHostCheck: false,
-    contentBase: 'build',
+    contentBase: targetDistPath,
     writeToDisk: false,
     index: 'index.html',
     historyApiFallback: true,
@@ -58,6 +66,7 @@ const devServer = {
 /**
  * 切割代码块规则配置
  * 更多配置：https://v4.webpack.js.org/plugins/split-chunks-plugin/#configuration
+ * @type { OptimizationSplitChunksOptions } splitChunks
  */
 const splitChunks = {
     chunks: 'async',
@@ -98,8 +107,8 @@ const splitChunks = {
 
 /**
  * 获取加载Loader配置规则，https://v4.webpack.js.org/configuration/module/#rule
- * @param {boolean} isProduction
- * @return {any}
+ * @param { boolean } isProduction
+ * @return { RuleSetRules } rules
  */
 const getLoader = function (isProduction) {
     // 获取生产环境和开发环境CSS Loader配置
@@ -181,7 +190,7 @@ const getLoader = function (isProduction) {
                     loader: 'file-loader',
                     options: {
                         name: 'images/[name].[ext]',
-                        publicPath: '/',
+                        publicPath: publicPath,
                         esModule: false
                     }
                 }
@@ -196,7 +205,7 @@ const getLoader = function (isProduction) {
                         limit: 8192,
                         fallback: 'file-loader',
                         name: 'images/[name].[fullhash:8].[ext]',
-                        publicPath: '/',
+                        publicPath: publicPath,
                         esModule: false
                     }
                 }
@@ -209,19 +218,32 @@ const getLoader = function (isProduction) {
                     loader: 'file-loader',
                     options: {
                         name: 'font/[name].[fullhash:8].[ext]',
-                        publicPath: '/',
+                        publicPath: publicPath,
                         esModule: false
                     }
                 }
             ]
+        },
+        {
+            test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+            use: {
+                loader: 'url-loader',
+                options: {
+                    limit: 8192,
+                    fallback: 'file-loader',
+                    name: 'media/[name].[fullhash:8].[ext]',
+                    publicPath: publicPath,
+                    esModule: false
+                }
+            }
         }
     ];
 };
 
 /**
  * 根据开发环境获取相对插件，https://v4.webpack.js.org/configuration/plugins/#plugins
- * @param {boolean} isProduction
- * @return {any}
+ * @param { boolean } isProduction
+ * @return { WebpackPlugins } plugins
  */
 const getPlugin = function (isProduction) {
     // 生产环境插件
@@ -257,7 +279,7 @@ const getPlugin = function (isProduction) {
             patterns: [
                 {
                     from: __dirname + '/public',
-                    to: __dirname + '/build',
+                    to: targetDistPath,
                     globOptions: {
                         ignore: ['.*']
                     }
@@ -288,9 +310,9 @@ const getPlugin = function (isProduction) {
 
 /**
  * webpack 核心配置，https://v4.webpack.js.org/configuration/
- * @param {any} env
- * @param {any} argv
- * @return {any}
+ * @param { any } env
+ * @param { any } argv
+ * @return { WebpackOptions } options
  */
 module.exports = function (env, argv) {
     const mode = argv.mode || 'development';
@@ -305,7 +327,7 @@ module.exports = function (env, argv) {
         resolve: {
             extensions: ['.js', '.ts', '.jsx', '.tsx'],
             alias: {
-                '@': ph.join(__dirname, 'src')
+                '@': path.join(__dirname, 'src')
             }
         },
         devServer: devServer,
@@ -328,8 +350,8 @@ module.exports = function (env, argv) {
         ],
         output: {
             filename: isProduction ? 'js/[name].[chunkhash:8].js' : 'js/[name].[fullhash:8].js',
-            path: ph.resolve(__dirname, 'build'),
-            publicPath: '/'
+            path: targetDistPath,
+            publicPath: publicPath
         },
         module: {
             rules: getLoader(isProduction)
