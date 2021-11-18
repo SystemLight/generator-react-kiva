@@ -28,12 +28,13 @@ yo react-kiva
 - [x] postcss
 - [x] react
 
-## 更新日志
+## CHANGE LOG
 
 ### V2.1.2
 
 - 丰富webpack.config.js中jsdoc定义
 - 增加Readme模板内容
+- 丰富初始化css配置内容
 
 ### V2.1.0
 
