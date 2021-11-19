@@ -7,6 +7,7 @@ const yosay = require('yosay');
 const semver = require('semver');
 const Generator = require('yeoman-generator');
 const kebabCase = require('lodash.kebabcase');
+const {yoCopy} = require('yo-copy');
 
 function parseScopedName(name) {
     const nameFragments = name.split('/');
@@ -28,29 +29,6 @@ function makeGeneratorName(name) {
     name = parsedName.localName;
     name = kebabCase(name);
     return parsedName.scopeName ? `${parsedName.scopeName}/${name}` : name;
-}
-
-class WalkDir {
-    constructor(folderPath) {
-        this.folderPath = path.resolve(folderPath);
-    }
-
-    forEach(fn) {
-        let fileStack = fs.readdirSync(this.folderPath);
-        while (fileStack.length !== 0) {
-            let currentChildPath = fileStack.pop();
-            let currentPath = path.join(this.folderPath, currentChildPath);
-            if (fs.statSync(currentPath).isDirectory()) {
-                fileStack = fileStack.concat(fs.readdirSync(currentPath).map((v) => path.join(currentChildPath, v)));
-            } else {
-                fn(currentPath, currentChildPath, path.basename(currentChildPath));
-            }
-        }
-    }
-}
-
-function walkDir(folderPath) {
-    return new WalkDir(folderPath);
 }
 
 module.exports = class extends Generator {
@@ -89,7 +67,7 @@ module.exports = class extends Generator {
 
     writing() {
         this._writePackageJson();
-        this._copyTemplate();
+        yoCopy(this);
     }
 
     installing() {
@@ -199,23 +177,5 @@ module.exports = class extends Generator {
             'react': '^17.0.2',
             'react-dom': '^17.0.1'
         }));
-    }
-
-    _copyTemplate() {
-        walkDir(this.templatePath('.')).forEach((fullPath, relativePath, fileName) => {
-            if (fileName === 'gitignore') {
-                const folder = path.dirname(relativePath);
-                return this.fs.copyTpl(
-                    this.templatePath(relativePath),
-                    this.destinationPath(path.join(folder, '.gitignore')),
-                    this.props
-                );
-            }
-            this.fs.copyTpl(
-                this.templatePath(relativePath),
-                this.destinationPath(relativePath),
-                this.props
-            );
-        });
     }
 }

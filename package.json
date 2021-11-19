@@ -5,6 +5,13 @@
   "scripts": {},
   "author": "SystemLight",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SystemLight/generator-react-kiva.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SystemLight/generator-react-kiva/issues"
+  },
   "files": [
     "generators"
   ],
@@ -26,6 +33,7 @@
     "lodash.kebabcase": "^4.1.1",
     "semver": "^7.3.5",
     "yeoman-generator": "^5.4.2",
+    "yo-copy": "^1.0.0",
     "yosay": "^2.0.2"
   },
   "devDependencies": {
