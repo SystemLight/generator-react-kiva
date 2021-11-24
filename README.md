@@ -30,6 +30,10 @@ yo react-kiva
 
 ## CHANGE LOG
 
+### V2.2.2
+
+- 封装eslint等到单独npm包中
+
 ### V2.1.2
 
 - 丰富webpack.config.js中jsdoc定义

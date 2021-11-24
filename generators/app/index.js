@@ -110,7 +110,7 @@ module.exports = class extends Generator {
         };
 
         this.fs.writeJSON(this.destinationPath('package.json'), pkg);
-        this.addDependencies({
+        this.addDevDependencies({
             '@babel/core': '^7.13.8',
             '@babel/preset-env': '^7.13.8',
             '@babel/preset-react': '^7.12.13',
@@ -121,8 +121,6 @@ module.exports = class extends Generator {
             '@types/jest': '^27.0.2',
             '@types/qs': '^6.9.5',
             '@types/react-dom': '^17.0.1',
-            '@typescript-eslint/eslint-plugin': '^4.15.2',
-            '@typescript-eslint/parser': '^4.15.2',
             '@wojtekmaj/enzyme-adapter-react-17': '^0.6.3',
             'babel-loader': '^8.2.2',
             'body-parser': '^1.19.0',
@@ -133,8 +131,7 @@ module.exports = class extends Generator {
             'css-loader': '^5.1.0',
             'enzyme': '^3.11.0',
             'eslint': '^7.21.0',
-            'eslint-plugin-react': '^7.22.0',
-            'eslint-plugin-react-hooks': '^4.2.0',
+            'eslint-plugin-typescript-react-kiva': '^1.0.3',
             'file-loader': '^6.2.0',
             'friendly-errors-webpack-plugin': '^1.7.0',
             'html-webpack-plugin': '^4.5.2',
@@ -156,7 +153,6 @@ module.exports = class extends Generator {
             'stylelint': '^13.13.1',
             'stylelint-config-idiomatic-order': '^8.1.0',
             'stylelint-config-standard': '^22.0.0',
-            'stylelint-order': '^4.1.0',
             'terser-webpack-plugin': '^4.2.3',
             'thread-loader': '^3.0.1',
             'ts-jest': '^27.0.5',
@@ -167,12 +163,14 @@ module.exports = class extends Generator {
             'webpack-cli': '^4.9.1',
             'webpack-dev-server': '^3.11.2',
             'webpackbar': '^5.0.0-3'
-        }).then(() => this.addDevDependencies({
+        }).then(() => this.addDependencies({
             '@ant-design/icons': '^4.7.0',
             '@babel/polyfill': '^7.12.1',
+            '@systemlight/pure.css': '^1.0.0',
             'antd': '^4.16.13',
             'axios': '^0.21.1',
             'core-js': '^3.9.0',
+            'prop-types': '^15.7.2',
             'qs': '^6.9.6',
             'react': '^17.0.2',
             'react-dom': '^17.0.1'

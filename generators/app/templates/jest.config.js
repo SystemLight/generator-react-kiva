@@ -3,12 +3,12 @@
  * typescript中jsx保留讨论：https://github.com/kulshekhar/ts-jest/issues/937
  * @type { import('@jest/types').Config.InitialOptions }
  */
-const config = {
-    setupFilesAfterEnv: [
-        '<rootDir>/tests/setupTests.ts'
-    ],
+module.exports = {
     roots: [
         '<rootDir>/tests/unit'
+    ],
+    setupFilesAfterEnv: [
+        '<rootDir>/tests/setupTests.ts'
     ],
     transform: {
         '^.+\\.tsx?$': 'ts-jest'
@@ -21,5 +21,3 @@ const config = {
     testRegex: '^.+\\.spec\\.tsx?$',
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node']
 };
-
-module.exports = config;

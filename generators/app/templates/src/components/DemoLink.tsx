@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState, ReactElement, ReactNode } from 'react';
+import PropTypes from 'prop-types';
 
 const STATUS = {
     HOVERED: 'hovered',
     NORMAL: 'normal'
 };
 
-const Link = ({page, children}) => {
+const Link = ({page, children}: LinkPropTypes): ReactElement => {
     const [status, setStatus] = useState(STATUS.NORMAL);
 
     const onMouseEnter = () => {
@@ -26,6 +27,16 @@ const Link = ({page, children}) => {
             {children}
         </a>
     );
+};
+
+type LinkPropTypes = {
+    page: string,
+    children: ReactNode
+}
+
+Link.propTypes = {
+    page: PropTypes.string,
+    children: PropTypes.node
 };
 
 export default Link;

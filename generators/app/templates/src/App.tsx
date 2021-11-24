@@ -1,8 +1,8 @@
-import React from 'react';
-import {ConfigProvider} from 'antd';
+import React, { ReactElement } from 'react';
+import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 
-function App() {
+function App(): ReactElement {
     return (
         <React.StrictMode>
             <ConfigProvider locale={zhCN} componentSize="middle">
