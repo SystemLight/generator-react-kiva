@@ -2,6 +2,7 @@
 
 # IDE content
 .idea/
+.vscode/
 
 # Special content
 build/

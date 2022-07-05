@@ -1,5 +1,7 @@
 # generator-react-kiva
 
+[![NPM version](https://img.shields.io/npm/v/generator-react-kiva.svg)](https://www.npmjs.com/package/generator-react-kiva)
+
 > React PC端开发模板
 
 [react-kiva2](https://github.com/SystemLight/create-kiva/tree/master/packages/react-kiva2) 模板项目的移植版本
@@ -10,23 +12,6 @@
 npm i generator-react-kiva -g
 yo react-kiva
 ```
-
-## 集成环境
-
-- [x] git
-- [x] webpack
-- [x] husky
-- [x] lint-staged
-- [x] stylelint
-- [x] eslint
-- [x] commitlint
-- [x] babel
-- [x] plop
-- [x] mockjs
-- [x] typescript
-- [x] less
-- [x] postcss
-- [x] react
 
 ## CHANGE LOG
 
